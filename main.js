@@ -12,6 +12,7 @@
 		cartBtn: document.querySelector('.cart-item'),
 		cartItemsContainer: document.querySelector('.items'),
 		cartTracker: document.querySelector('.cart-item__tracker'),
+		alertAddItem: document.querySelector('.alert__add-item'),
 		alert: document.querySelector('.alert'),
 		locationBtn: document.querySelector('.location__btn'),
 		locationInput: document.querySelector('.location__input'),
@@ -54,11 +55,16 @@
 
 	const cart = {
 		items: [],
+		orderTotal: 0,
 
-		addItem: function(name, price){
+		addItem: function(name, price) {
 			// add item to array if it doesn't already exist
 			if (!this.isItemAlreadyInCart(name)) {
-				this.items.push({name: name, price: price, quantity: 1});
+				this.items.push({
+					name: name,
+					price: price,
+					quantity: 1
+				});
 			} else {
 				const index = this.getIndexOfItem(name);
 
@@ -66,16 +72,25 @@
 
 				console.log(this.items);
 			}
+
+			// update order total
+			this.updateOrderTotal();
+		},
+
+		updateOrderTotal: function() {
+			this.orderTotal = this.items.map(el => el.price * el.quantity)
+				.reduce((acc, cur) => acc + cur);
+			console.log(this.orderTotal);
 		},
 
 		isItemAlreadyInCart: function(name) {
-			const found = this.items.find( item => item.name === name );
-			
+			const found = this.items.find(item => item.name === name);
+
 			return found;
 		},
 
 		getIndexOfItem: function(name) {
-			const index = this.items.findIndex( item => item.name === name );
+			const index = this.items.findIndex(item => item.name === name);
 
 			return index;
 		},
@@ -83,10 +98,10 @@
 		getItemFromDOM: function(name) {
 			const elements = document.querySelectorAll('.item');
 
-			let element = [...elements].find( el => {
+			let element = [...elements].find(el => {
 				return el.firstElementChild.textContent === name;
 			});
-			
+
 			return element;
 		},
 
@@ -102,10 +117,10 @@
 
 				return;
 			}
-			
+
 			const container = DOM.cartItemsContainer;
 
-			const html = 
+			const html =
 				`<div class='item'>
 					
 					<div class='item__name'>${name}</div>
@@ -131,6 +146,9 @@
 			this.items.splice(index, 1);
 
 			console.log(this.items);
+
+			// update order total
+			this.updateOrderTotal();
 		},
 
 		removeItemFromUI: function(name) {
@@ -138,8 +156,8 @@
 
 			// animate a fade out before removing
 			element.style.opacity = '0';
-			
-			setTimeout( () => {
+
+			setTimeout(() => {
 				element.parentNode.removeChild(element);
 				console.log(this);
 				if (this.items.length === 0) {
@@ -148,12 +166,12 @@
 					emptyMsg.classList.remove('cart__empty--hide');
 				}
 			}, 400);
-			
+
 		},
 
 		getTotalQuantity: function() {
 			return this.items.map(el => el.quantity)
-				.reduce((acc, cur) => acc + cur);	
+				.reduce((acc, cur) => acc + cur);
 		}
 	};
 
@@ -288,13 +306,13 @@
 		const name = e.target.parentNode.firstElementChild.textContent.trim();
 
 		const price = parseFloat(e.target.parentNode.children[1].textContent.trim().substring(1));
-		
+
 		// 2. Add item to cart object
 		cart.addItem(name, price);
 
 		// 3. Hide empty cart msg if at least 1 item is in cart and disply isn't already hidden
 		const emptyMsg = document.querySelector('.cart__empty');
-		
+
 		if (cart.items.length > 0 && getComputedStyle(emptyMsg).display !== 'none') {
 			emptyMsg.classList.toggle('cart__empty--hide');
 		}
@@ -307,18 +325,24 @@
 
 		// 4. Add item to cart UI
 		cart.addItemToUI(name, price);
+
+		// 5. Display success alert 
+		e.target.textContent = 'Item added!';
+		setTimeout(function() {
+			e.target.textContent = 'Add to Cart';
+		}, 1200);
 	}
 
 	function deleteItemFromCart(e) {
 		let name;
 		let el = e.target;
 
-		if (!e.target.classList.contains('delete__part')){
+		if (!e.target.classList.contains('delete__part')) {
 			return;
 		}
 
 		// 1. Get item name from DOM
-		if(el.classList.contains('delete')) {
+		if (el.classList.contains('delete')) {
 			name = el.parentNode.parentNode.firstElementChild.textContent;
 		} else {
 			name = el.parentNode.parentNode.parentNode.firstElementChild.textContent;
@@ -333,7 +357,7 @@
 		} else {
 			DOM.cartTracker.textContent = cart.getTotalQuantity();
 		}
-		
+
 		// 4. Remove item from cart UI
 		cart.removeItemFromUI(name);
 	}
