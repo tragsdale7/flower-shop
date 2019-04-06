@@ -10,40 +10,58 @@
 
 	<nav class='nav'>
 			<div class="logo">
-				Fairfax
-				<ion-icon name="rose" class='logo__icon'></ion-icon>
-				Flowers
+				Fairfax<ion-icon name="rose" class='logo__icon'></ion-icon>Flowers
 			</div>
 
-			<div class="flex f--align-center relative">
+			<div class="links">
+				<div class="nav__link link-about">About</div>
+				<div class="nav__link link-shop">Shop</div>
 
-				<div class="nav__about nav__item nav__item--padding">About</div>
-
-				<div class="nav__shop nav__item nav__item--padding">Shop</div>
-
-				<div class="nav__item cart-item flex f--align-center">
+				<div class="nav__link link-cart">
 					MyCart
-					<ion-icon name="arrow-dropup" class='cart-item__caret caret'></ion-icon>
-
-					<div class="cart-item__tracker">1</div>
-				</div>
-				
-				<div class="cart">
-
-					<div class="items"></div>
-					<div class="cart__empty">Cart is empty</div>
-
-					<div class="cart-inner">
-						<div class="cart__total">Total: $<span class='cart__total-num'>0</span></div>
-
-						<button class="cart__checkout-btn">Checkout</button>
-					</div>	
-
-					<div class="cart__arrow"></div>
+					<ion-icon name="arrow-dropup" class='link-cart__caret'></ion-icon>
+					<div class="total-items">1</div>
 				</div>
 			</div>
 
+			<div class="cart">
+				<div class="cart__arrow"></div>
 
+				<div class="cart__items items"></div>
+
+				<div class="cart__empty">Cart is empty</div>
+				<div class="cart__total">Total: $<span class='cart__total-num'>30.00</span></div>
+				<button class='cart__checkout-btn'>Checkout</button>
+			</div>
+
+			<div class="modal">
+				<div class="checkout">
+					<div class="checkout__header">Checkout 
+						<div class="checkout__exit"><ion-icon name="close" class="exit__icon"></ion-icon></div>
+					</div>
+
+					<div class="checkout__body">
+						<div class="checkout__shipment">
+							<p>Choose a shipment option:</p>
+							<input type="radio" name="shipment" value="pickup">
+							<label for="pickup">Pickup</label>
+							<input type="radio" name="shipment" value="delivery">
+							<label for="pickup">Delivery</label>
+						</div>
+
+						<div class="checkout__address address">
+							<p>Enter your address:</p>
+							<input class="address__input" type="text" placeholder="Address...">
+						</div>
+
+						<hr class='checkout__separator'>
+
+						<div class="checkout__items"></div>
+						<div class="checkout__total"></div>
+						<button class="checkout__order-btn">Place Order</button>
+					</div>
+				</div>
+			</div>
 	</nav>
 
 	<main>
@@ -54,13 +72,9 @@
 	</main>
 
 	<section class='about'>
-		<h1 class="about__header">
-			About Us
-		</h1>
+		<h1 class="about__header">About Us</h1>
 
-		<p class="about__content">
-			We are a locally owned flower shop located in Fairfax, Virginia. With over 120 types of flowers, our selection is one of the most diverse in the area. We offer next-day delivery services to anyone located within a 20 mile radius. Purchase more than $50 worth of products and get it delivered straight to your door for free!
-		</p>
+		<p class="about__content">We are a locally owned flower shop located in Fairfax, Virginia. With over 120 types of flowers, our selection is one of the most diverse in the area. We offer next-day delivery services to anyone located within a 20 mile radius. Purchase more than $50 worth of products and get it delivered straight to your door for free!</p>
 
 		<div class="about__img-container">
 			<img src="./img/assorted-flowers.jpeg" alt="" class="about__img">
@@ -73,16 +87,11 @@
 
 			<div class="location__inner">
 				<div class="location__content-container">
-					<h3 class="location__header">
-						Delivery Services
-					</h3>
+					<h3 class="location__header">Delivery Services</h3>
 
-					<p class="location__input-info">
-						Enter your address below to see if you qualify for next-day delivery!
-					</p>
+					<p class="location__input-info">Enter your address below to see if you qualify for next-day delivery!</p>
 
 					<input type="text" class="location__input" placeholder='Enter address here...'>
-
 					<input type="submit" class='location__btn'>
 				</div>
 
@@ -97,111 +106,66 @@
 		</h1>
 
 		<div class="product__grid-container">
-
 			<div class="product">
 				<img src="./img/lavender-world.jpg" alt="" class="product__img">
+
 				<div class="product__body">
-					<div class="product__name mb--10">
-						Lavender World
-					</div>
-
-					<p class="product__price mb--10">
-						$49.99
-					</p>
-
-					<button class="product__btn">
-						Add to Cart
-					</button>
+					<div class="product__name">Lavender World</div>
+					<p class="product__price">$49.99</p>
+					<button class="product__btn">Add to Cart</button>
 				</div>
 			</div>
 
 			<div class="product">
 				<img src="./img/orange-crush.jpg" alt="" class="product__img">
+
 				<div class="product__body">
-					<div class="product__name mb--10">
-						Orange Crush
-					</div>
-
-					<p class="product__price mb--10">
-						$30.99
-					</p>
-
-					<button class="product__btn">
-						Add to Cart
-					</button>
+					<div class="product__name">Orange Crush</div>
+					<p class="product__price">$30.99</p>
+					<button class="product__btn">Add to Cart</button>
 				</div>
 			</div>
 
 			<div class="product">
 				<img src="./img/blooms-beauty.jpg" alt="" class="product__img">
+
 				<div class="product__body">
-					<div class="product__name mb--10">
-						Blooms Beauty
-					</div>
-
-					<p class="product__price mb--10">
-						$59.99
-					</p>
-
-					<button class="product__btn">
-						Add to Cart
-					</button>
+					<div class="product__name">Blooms Beauty</div>
+					<p class="product__price">$59.99</p>
+					<button class="product__btn">Add to Cart</button>
 				</div>
 			</div>
 
 			<div class="product">
 				<img src="./img/sunshine-blossom.jpg" alt="" class="product__img">
+
 				<div class="product__body">
-					<div class="product__name mb--10">
-						Sunshine Blossom
-					</div>
-
-					<p class="product__price mb--10">
-						$29.99
-					</p>
-
-					<button class="product__btn">
-						Add to Cart
-					</button>
+					<div class="product__name">Sunshine Blossom</div>
+					<p class="product__price">$29.99</p>
+					<button class="product__btn">Add to Cart</button>
 				</div>
 			</div>
 
 			<div class="product">
 				<img src="./img/floral-melody.jpg" alt="" class="product__img">
+
 				<div class="product__body">
-					<div class="product__name mb--10">
-						Floral Melody
-					</div>
-
-					<p class="product__price mb--10">
-						$59.99
-					</p>
-
-					<button class="product__btn">
-						Add to Cart
-					</button>
+					<div class="product__name">Floral Melody</div>
+					<p class="product__price">$59.99</p>
+					<button class="product__btn">Add to Cart</button>
 				</div>
 			</div>
 
 
 			<div class="product">
 				<img src="./img/pink-spectacle.jpg" alt="" class="product__img">
+
 				<div class="product__body">
-					<div class="product__name mb--10">
-						Pink Spectacle
-					</div>
-
-					<p class="product__price mb--10">
-						$39.99
-					</p>
-
-					<button class="product__btn">
-						Add to Cart
-					</button>
+					<div class="product__name">Pink Spectacle</div>
+					<p class="product__price">$39.99</p>
+					<button class="product__btn">Add to Cart</button>
 				</div>
 			</div>
-
-
 		</div>
 	</section>
 
