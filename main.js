@@ -535,7 +535,8 @@
 
 				DOM.deliveryAddressInput.value = '';
 
-			} else if (hasClass(e, 'checkout__address-btn')) {
+			} else if (hasClass(e, 'checkout__address-btn') ||
+				hasClass(e, 'checkout__order-btn')) {
 
 				address = DOM.checkoutAddressInput.value;
 				alertElement = DOM.checkoutAlert;
@@ -551,7 +552,7 @@
 					let alertFinished = isAlertDoneDisplaying(alertElement, 'Sorry but we do not deliver to that address.', true);
 
 					alertFinished.then(() => model.isCheckAddressFuncRunning = false);
-					return;
+					return false;
 				}
 
 				// Add inputted address to model
@@ -608,14 +609,26 @@
 			});
 		}
 
-		function placeOrder() {
+		function placeOrder(e) {
 			// prevent func from firing again while async tasks running
 			if (model.isPlaceOrderFuncRunning) return;
 			model.isPlaceOrderFuncRunning = true;
 
 			if (!areInputFieldsFilled()) return;
 
+			if (DOM.checkoutRadioButtons[1].checked) {
+				if (checkAddress(e) !== false) {
+					console.log('Order placeD!')
+				}
+			} else {
+				let msg = 'Congrats! Your order has been placed. Pickup will be ready within 2-3 business days.';
+				let alertDoneDisplaying = isAlertDoneDisplaying(DOM.checkoutAlert, msg, false)
+			}
+			
+
 			console.log('woowaahh made it this far')
+			model.isPlaceOrderFuncRunning = false;
+
 		}
 
 		function initMap() {
